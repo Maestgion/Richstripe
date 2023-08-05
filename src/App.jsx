@@ -6,7 +6,8 @@ import SignupPage from "./pages/SignupPage";
 import LandingPage from "./pages/LandingPage";
 import SignupStart from "./components/SignupStart";
 import Planform from "./components/Planform";
-import PricingTable from "./components/PricingTable";
+import Register from "./components/Register";
+import AccountForm from "./components/AccountForm";
 
 const App = () => {
   const user = true;
@@ -21,12 +22,13 @@ const App = () => {
           <Route path="signup" element={<SignupPage />}>
             <Route index element={<SignupStart />} />
             <Route path="planform" element={<Planform />} />
-            <Route path="registration" element={<SignupPage />} />
-            <Route path="regform" element={<LoginPage />} />
+            <Route path="registration" element={<Register />} />
+            <Route path="regform" element={<AccountForm/>} />
             <Route path="paymentPicker" element={<SignupPage />} />
           </Route>
-        </Route>
         <Route path="/signin" element={<LoginPage />} />
+
+        </Route>
       </Routes>
 
       )}

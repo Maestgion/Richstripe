@@ -1,8 +1,12 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
+import AccountForm from "../components/AccountForm"
 
 const LoginPage = () => {
+
   return (
-    <div>LoginPage</div>
+    <>
+     <AccountForm isLogin={true}/>
+    </>
   )
 }
 

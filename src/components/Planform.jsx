@@ -45,7 +45,7 @@ const Planform = () => {
         {/* button */}
 
         <div className='w-full text-center pb-20'>
-          <Link to="/">
+          <Link to="/signup/registration">
             <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-6 w-[40%] text-xl">
               Next
             </button>
