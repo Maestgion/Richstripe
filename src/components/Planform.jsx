@@ -1,12 +1,14 @@
 import React from 'react'
 import {HiOutlineCheck} from "react-icons/hi"
 import PricingTable from './PricingTable'
+import { Link } from 'react-router-dom'
 
 const Planform = () => {
   return (
     <>  
-
-        <div className='my-4 flex flex-col items-start bg-red-500 mx-72 gap-10'>
+    <div className='bg-[#0F1014]'>
+        
+    <div className='pt-8 flex flex-col items-start  mx-60 gap-16 bg-[#0F1014]'>
         {/* header */}
 
         <div className='flex flex-col gap-4 justify-center items-start text-white'>
@@ -41,7 +43,16 @@ const Planform = () => {
         </div>
  
         {/* button */}
+
+        <div className='w-full text-center pb-20'>
+          <Link to="/">
+            <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-6 w-[40%] text-xl">
+              Next
+            </button>
+          </Link>
         </div>
+        </div>
+    </div>
     </>
   )
 }
