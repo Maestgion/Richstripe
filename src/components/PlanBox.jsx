@@ -1,24 +1,29 @@
-import React from 'react'
+import React from 'react';
 
-const PlanBox = ({title}) => {
-
-    const [showTriangle, setShowTriangle] = useState(false)
-
-    const toggleTriangle = ()=>{
-        setShowTriangle(!showTriangle)
-    }
-
+const PlanBox = ({ title, selected, onClick }) => {
   return (
-    <>
-        <div className='relative w-40 h-40 bg-[#4274a3]' onClick={toggleTriangle}>
-            {
-                showTriangle && (
-                    <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0 border-solid border-t-5 border-transparent border-white' >{title}</div>
-                )
-            }
-        </div>
-    </>
-  )
-}
+    <div
+      className={`relative w-32 h-32 flex items-center justify-center cursor-pointer rounded-sm ${
+        selected ? 'bg-[#004E96]' : 'bg-[#547696]'
+      }`}
+      onClick={onClick}
+    >
+      {selected && (
+        <div
+          className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-0 h-0"
+          style={{
+            borderBottom: 'none',
+            borderTop: 'solid 15px #004E96',
+            borderLeft: 'solid 15px transparent',
+            borderRight: 'solid 15px transparent',
+          }}
+        ></div>
+      )}
+      <p className={`text-white text-xl font-semibold `}>
+        {title}
+      </p>
+    </div>
+  );
+};
 
-export default PlanBox
+export default PlanBox;
