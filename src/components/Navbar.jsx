@@ -13,7 +13,7 @@ const Navbar = () => {
 
         <div>
           <Link to="/signin">
-            <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#023c72] py-2 px-6">
+            <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-2 px-6">
               Sign in
             </button>
           </Link>

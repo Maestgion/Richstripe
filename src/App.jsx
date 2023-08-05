@@ -4,6 +4,7 @@ import GlobalPage from './pages/GlobalPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import LandingPage from './pages/LandingPage'
+import SignupStart from './components/SignupStart'
 
 
 const App = () => {
@@ -15,7 +16,15 @@ const App = () => {
         <Routes>
         <Route path="/" element={<GlobalPage/>}>
         <Route index  element ={<LandingPage/>} />
-        <Route path="/signup" element={<SignupPage/>} />
+        <Route path="/signup" element={<SignupStart/>} >
+
+        <Route path="planform" element={<SignupPage/>} />
+
+        <Route path="registration" element={<SignupPage/>} />
+        <Route path="regform" element={<SignupPage/>} />
+        <Route path="paymentPicker" element={<SignupPage/>} />
+
+        </Route>
         </Route>
 
         <Route path="/signin" element={<LoginPage/>} />
