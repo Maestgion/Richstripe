@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {auth} from "../utils/firebase"
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const AccountForm = ({ isLogin }) => {
   const [user, setUser] = useState({
@@ -12,16 +12,34 @@ const AccountForm = ({ isLogin }) => {
 
   const [checkme, setCheckme] = useState(false);
 
-  console.log(user.name)
 
 
-  const handleSubmit=async (e)=>{
+
+  const handleSignUp=async (e)=>{
     e.preventDefault()
     try{
-      await createUserWithEmailAndPassword(auth, user.email, user.password)
-      }catch(err)
+      const userCredentials = await createUserWithEmailAndPassword(auth, user.email, user.password)
+      console.log(userCredentials)
+
+      await updateProfile(userCredentials.user, {
+        displayName: user.name,
+      })
+
+      }catch(error)
       {
-          console.log(err)
+          alert(error.message)
+      }
+  }
+
+  const handleSignIn = async (e)=>{
+    e.preventDefault();
+    try{
+      const user = await signInWithEmailAndPassword(auth, user.email, user.password)
+      console.log(user)
+
+      }catch(error)
+      {
+          alert(error.message)
       }
   }
 
@@ -37,31 +55,36 @@ const AccountForm = ({ isLogin }) => {
           </div>
 
           {/* form */}
-          <form  onSubmit={handleSubmit} className='w-[100%]'>
+          <form   className='w-[100%]'>
             <div className='flex flex-col gap-8 justify-center items-center w-full'>
-              <input
+             {
+              !isLogin && ( <input
                 type="text"
                 className='outline-none bg-transparent border py-3 px-2 w-full rounded-md'
                 placeholder='Name'
                 value={user.name}
                 onChange={(e) => setUser({ ...user, name: e.target.value })}
-              />
+                required
+              />)
+             }
               <input
                 type="email"
                 className='outline-none bg-transparent border py-3 px-2 w-full rounded-md'
                 placeholder='Email'
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
+                required
               />
-              {!isLogin && (
+       
                 <input
                   type="password"
                   className='outline-none bg-transparent border py-3 px-2 w-full rounded-md'
                   placeholder='Password'
                   value={user.password}
                   onChange={(e) => setUser({ ...user, password: e.target.value })}
+                  required
                 />
-              )}
+         
 
               <label className='w-full flex center justify-start text-lg gap-2'>
                 <input
@@ -77,7 +100,7 @@ const AccountForm = ({ isLogin }) => {
           {/* button */}
           <div className='w-[100%]'>
             {/* <Link to="/signup"> */}
-              <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-10 text-2xl w-[100%]" type="submit" onClick={handleSubmit}>
+              <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-10 text-2xl w-[100%]" type="submit" onClick={!isLogin?handleSignUp:handleSignIn}>
                 {!isLogin ? "Sign up" : "Sign in"}
               </button>
             {/* </Link> */}

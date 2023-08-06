@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalPage from "./pages/GlobalPage";
 import LoginPage from "./pages/LoginPage";
@@ -8,9 +8,35 @@ import SignupStart from "./components/SignupStart";
 import Planform from "./components/Planform";
 import Register from "./components/Register";
 import AccountForm from "./components/AccountForm";
+import { auth } from "./utils/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, signIn, signOut } from "./store/slices/userSlice";
 
 const App = () => {
-  const user = true;
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+   const unsubscribe =   auth.onAuthStateChanged(userAuth=>{
+      if(userAuth)
+      { 
+        dispatch(signIn({
+          uid: userAuth?.uid,
+          name: userAuth?.displayName,
+          email: userAuth?.email,
+         
+        }))
+        console.log(userAuth);
+      }else{
+        dispatch(signOut)
+        console.log('No User');
+
+      }
+    })
+
+    return unsubscribe
+  }, [])
+  
   return (
     <BrowserRouter>
       {!user ? (
