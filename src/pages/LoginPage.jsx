@@ -5,7 +5,9 @@ const LoginPage = () => {
 
   return (
     <>
-     <AccountForm isLogin={true}/>
+    <div className='bg-[#0F1014]'>
+    <AccountForm isLogin={true}/>
+    </div>
     </>
   )
 }

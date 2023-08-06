@@ -99,11 +99,11 @@ const AccountForm = ({ isLogin }) => {
 
           {/* button */}
           <div className='w-[100%]'>
-            {/* <Link to="/signup"> */}
+            <Link to="/signup/planform">
               <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-10 text-2xl w-[100%]" type="submit" onClick={!isLogin?handleSignUp:handleSignIn}>
                 {!isLogin ? "Sign up" : "Sign in"}
               </button>
-            {/* </Link> */}
+            </Link>
           </div>
 
           {/* disclaimer */}
@@ -112,12 +112,12 @@ const AccountForm = ({ isLogin }) => {
             !isLogin?( <p className='text-lg tracking-wider'>
             Already have an account?{" "}
             <span className='text-[#004E96] font-bold'>
-              <Link to="/">Login</Link>
+              <Link to="/signin">Login</Link>
             </span>
           </p>) : (<p className='text-lg tracking-wider'>
             New to MyApp?{" "}
             <span className='text-[#004E96] font-bold'>
-              <Link to="/signup/planform">Sign Up</Link>
+              <Link to="/signup">Sign Up</Link>
             </span>
           </p>)
            }

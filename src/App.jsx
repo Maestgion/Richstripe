@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalPage from "./pages/GlobalPage";
 import LoginPage from "./pages/LoginPage";
@@ -17,55 +17,47 @@ import { signOut } from "firebase/auth";
 
 const App = () => {
   const user = useSelector(selectUser);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-   const unsubscribe =   auth.onAuthStateChanged(userAuth=>{
-      if(userAuth)
-      { 
-        dispatch(signin({
-          uid: userAuth?.uid,
-          name: userAuth?.displayName,
-          email: userAuth?.email,
-         
-        }))
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(
+          signin({
+            uid: userAuth?.uid,
+            name: userAuth?.displayName,
+            email: userAuth?.email,
+          })
+        );
         console.log(userAuth);
-      }else{
-        signOut(auth)
-        dispatch(signout)
-        console.log('No User');
-
+      } else {
+        signOut(auth);
+        dispatch(signout);
+        console.log("No User");
       }
-    })
+    });
 
-    return unsubscribe
-  }, [])
+    return unsubscribe;
+  }, []);
 
   return (
     <BrowserRouter>
-      {!user ? (
-        <LoginPage />
-      ) : (
         <Routes>
-        <Route path="/" element={<GlobalPage />}>
-          <Route index element={<LandingPage />} />
-          <Route path="signup" element={<SignupPage />}>
-            <Route index element={<SignupStart />} />
-            <Route path="planform" element={<Planform />} />
-            <Route path="registration" element={<Register />} />
-            <Route path="regform" element={<AccountForm/>} />
-            <Route path="paymentPicker" element={<SignupPage />} />
+          <Route path="/" element={<GlobalPage />}>
+            <Route index element={<LandingPage />} />
+            <Route path="signup" element={<SignupPage />}>
+              <Route index element={<SignupStart />} />
+              <Route path="registration" element={<Register />} />
+              <Route path="regform" element={<AccountForm />} />
+              <Route path="planform" element={<Planform />} />
+              <Route path="paymentPicker" element={<SignupPage />} />
+            </Route>
+            <Route path="/signin" element={<LoginPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
           </Route>
-        <Route path="/signin" element={<LoginPage />} />
-        <Route path="/dashboard" element={<DashboardPage/>}/>
-        </Route>
-        <Route path="*" element={<ErrorPage/>}/>
-
-      </Routes>
-
-      )}
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
     </BrowserRouter>
-    // <PricingTable/>
   );
 };
 
