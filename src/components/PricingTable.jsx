@@ -1,12 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlanBox from "./PlanBox";
 import { BsPhone, BsTabletLandscape } from "react-icons/Bs";
 import { RiComputerLine } from "react-icons/ri";
 import { MdOutlineComputer } from "react-icons/md";
+import {db} from "../utils/firebase";
+import {doc, getDocs, collection, addDoc, onSnapshot } from 'firebase/firestore';
+import { Link } from 'react-router-dom'
+import { selectUser } from "../store/slices/userSlice";
+import { useSelector } from "react-redux";
+import {loadStripe} from "@stripe/stripe-js"
 
 const PricingTable = () => {
+  const user = useSelector(selectUser)
   const [isYearly, setIsYearly] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+const [products, setProducts] = useState([]);
+const priceIds = [];
+const loginRoute = '/signin';
+const planRoute = '/signup/planform'
+
+
+  const fetchProductsAndPrices = async () => {
+    const productsQuerySnapshot = await getDocs(collection(db, 'products'));
+    const productsData = [];
+
+    for (const productDoc of productsQuerySnapshot.docs) {
+      const product = productDoc.data();
+      const productWithId = { ...product, id: productDoc.id };
+
+      const pricesQuerySnapshot = await getDocs(collection(productDoc.ref, 'prices'));
+      const pricesData = pricesQuerySnapshot.docs.map((priceDoc) => {
+        const price = priceDoc.data();
+        priceIds.push(priceDoc.id)
+        return { priceId: priceDoc.id, ...price };
+      });
+
+      productWithId.prices = pricesData;
+
+      productsData.push(productWithId);
+    }
+
+    console.log(priceIds)
+
+    setProducts(productsData);
+  };
+
+  useEffect(() => {
+    fetchProductsAndPrices();
+  }, []);
+
+
+  console.log(products)
+
   const handleToggle = () => {
     setIsYearly(!isYearly);
   };
@@ -14,6 +59,100 @@ const PricingTable = () => {
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
+
+  const getPriceId=()=>{
+
+    
+   if(selectedOption=="option1")
+   {
+     if(isYearly==true)
+     {
+      return priceIds[0]
+     }else{
+      return priceIds[1]
+     }
+   }else if(selectedOption=="option2")
+   {
+     if(isYearly==true)
+     {
+      return priceIds[3]
+     }else{
+      return priceIds[2]
+     }
+   }else if(selectedOption=="option3")
+   {
+     if(isYearly==true)
+     {
+      return priceIds[5]
+     }else{
+      return priceIds[4]
+     }
+   }else if(selectedOption=="option4")
+   {
+     if(isYearly==true)
+     {
+      return priceIds[7]
+     }else{
+      return priceIds[6]
+     }
+  }
+}
+
+
+   const handleCheckout=async (e)=>{
+
+    e.preventDefault()
+
+    const success_url = window.location.origin + loginRoute
+    const cancel_url  = window.location.origin + planRoute
+
+    await fetchProductsAndPrices()
+
+    const priceId = await getPriceId()
+
+    if (!priceId) {
+      console.error("Invalid priceId:", priceId);
+      return;
+    }
+
+    try {
+      const checkoutSessionRef = await addDoc(
+        collection(doc(db, "customers", user.uid), "checkout_sessions"),
+        {
+          price: priceId,
+          success_url: success_url,
+          cancel_url: cancel_url,
+        }
+      );
+
+      // Listen for changes to the checkout session document
+      onSnapshot(checkoutSessionRef, async (snap) => {
+        const { error, sessionId } = snap.data();
+        if (error) {
+          alert(`An error occurred: ${error.message}`);
+        }
+
+        if (sessionId) {
+          // Load Stripe and redirect to the checkout page
+          const stripe = await loadStripe(
+            "pk_test_51MVdxzSFMTj4nqebwkFGQwI33Qr9yAdpBqB9GdeYIiOKJnsaMy4mftmSgThnBZiI1G91Trg7TP3Pcj7nh3Vj9u830080OJ3x1k" // Replace with your Stripe public key
+          );
+
+          stripe.redirectToCheckout({ sessionId });
+        }
+      });
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+    }
+
+
+  };
+      
+
+
+   
+
+
   return (
     <>
       <div className="relative overflow-x-auto ">
@@ -110,6 +249,7 @@ const PricingTable = () => {
             </tr>
           </thead>
           <tbody>
+          
             <tr
               className={`border-b border-gray-300 text-base text-center font-bold`}
             >
@@ -379,10 +519,22 @@ const PricingTable = () => {
               </td>
             </tr>
           </tbody>
+         
         </table>
+
+        <div className='w-full text-center p-20'>
+          {/* <Link to="/signup/registration"> */}
+            <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-6 w-[40%] text-xl" onClick={(e)=>handleCheckout(e)}>
+              Next
+            </button>
+          {/* </Link> */}
+        </div>
       </div>
+
+    
     </>
   );
 };
+
 
 export default PricingTable;

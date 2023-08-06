@@ -11,6 +11,7 @@ import AccountForm from "./components/AccountForm";
 import { auth } from "./utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signIn, signOut } from "./store/slices/userSlice";
+import DashboardPage from "./pages/DashboardPage";
 
 const App = () => {
   const user = useSelector(selectUser);
@@ -36,7 +37,7 @@ const App = () => {
 
     return unsubscribe
   }, [])
-  
+
   return (
     <BrowserRouter>
       {!user ? (
@@ -53,7 +54,7 @@ const App = () => {
             <Route path="paymentPicker" element={<SignupPage />} />
           </Route>
         <Route path="/signin" element={<LoginPage />} />
-
+        <Route path="/dashboard" element={<DashboardPage/>}/>
         </Route>
       </Routes>
 
