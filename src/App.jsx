@@ -10,8 +10,10 @@ import Register from "./components/Register";
 import AccountForm from "./components/AccountForm";
 import { auth } from "./utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, signIn, signOut } from "./store/slices/userSlice";
+import { selectUser, signin, signout } from "./store/slices/userSlice";
 import DashboardPage from "./pages/DashboardPage";
+import ErrorPage from "./pages/ErrorPage";
+import { signOut } from "firebase/auth";
 
 const App = () => {
   const user = useSelector(selectUser);
@@ -21,7 +23,7 @@ const App = () => {
    const unsubscribe =   auth.onAuthStateChanged(userAuth=>{
       if(userAuth)
       { 
-        dispatch(signIn({
+        dispatch(signin({
           uid: userAuth?.uid,
           name: userAuth?.displayName,
           email: userAuth?.email,
@@ -29,7 +31,8 @@ const App = () => {
         }))
         console.log(userAuth);
       }else{
-        dispatch(signOut)
+        signOut(auth)
+        dispatch(signout)
         console.log('No User');
 
       }
@@ -56,6 +59,8 @@ const App = () => {
         <Route path="/signin" element={<LoginPage />} />
         <Route path="/dashboard" element={<DashboardPage/>}/>
         </Route>
+        <Route path="*" element={<ErrorPage/>}/>
+
       </Routes>
 
       )}

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import PlanBox from "./PlanBox";
-import { BsPhone, BsTabletLandscape } from "react-icons/Bs";
 import { RiComputerLine } from "react-icons/ri";
-import { MdOutlineComputer } from "react-icons/md";
+import { MdOutlineComputer, MdSmartphone, MdOutlineTablet } from "react-icons/md";
 import {db} from "../utils/firebase";
 import {doc, getDocs, collection, addDoc, onSnapshot } from 'firebase/firestore';
-import { Link } from 'react-router-dom'
 import { selectUser } from "../store/slices/userSlice";
 import { useSelector } from "react-redux";
 import {loadStripe} from "@stripe/stripe-js"
@@ -116,6 +114,7 @@ const planRoute = '/signup/planform'
     }
 
     try {
+      console.log("hi")
       const checkoutSessionRef = await addDoc(
         collection(doc(db, "customers", user.uid), "checkout_sessions"),
         {
@@ -125,7 +124,7 @@ const planRoute = '/signup/planform'
         }
       );
 
-      // Listen for changes to the checkout session document
+
       onSnapshot(checkoutSessionRef, async (snap) => {
         const { error, sessionId } = snap.data();
         if (error) {
@@ -133,9 +132,9 @@ const planRoute = '/signup/planform'
         }
 
         if (sessionId) {
-          // Load Stripe and redirect to the checkout page
+        
           const stripe = await loadStripe(
-            "pk_test_51MVdxzSFMTj4nqebwkFGQwI33Qr9yAdpBqB9GdeYIiOKJnsaMy4mftmSgThnBZiI1G91Trg7TP3Pcj7nh3Vj9u830080OJ3x1k" // Replace with your Stripe public key
+            "pk_test_51MVdxzSFMTj4nqebwkFGQwI33Qr9yAdpBqB9GdeYIiOKJnsaMy4mftmSgThnBZiI1G91Trg7TP3Pcj7nh3Vj9u830080OJ3x1k" 
           );
 
           stripe.redirectToCheckout({ sessionId });
@@ -386,14 +385,14 @@ const planRoute = '/signup/planform'
                        justify-start gap-4"
                   >
                     <p>Phone</p>
-                    <BsPhone className="text-xl" />
+                    <MdSmartphone className="text-xl" />
                   </li>
                   <li
                     className="flex flex-col items-center
                        justify-center gap-4"
                   >
                     <p>Tablet</p>
-                    <BsTabletLandscape className="text-xl" />
+                    <MdOutlineTablet className="text-xl" />
                   </li>
                 </ul>
               </td>
@@ -411,14 +410,14 @@ const planRoute = '/signup/planform'
                        justify-center gap-4"
                   >
                     <p>Phone</p>
-                    <BsPhone className="text-xl" />
+                    <MdSmartphone className="text-xl" />
                   </li>
                   <li
                     className="flex flex-col items-center
                        justify-center gap-4"
                   >
                     <p>Tablet</p>
-                    <BsTabletLandscape className="text-xl" />
+                    <MdOutlineTablet className="text-xl" />
                   </li>
                   <li
                     className="flex flex-col items-center
@@ -451,14 +450,14 @@ const planRoute = '/signup/planform'
                        justify-center gap-4"
                   >
                     <p>Phone</p>
-                    <BsPhone className="text-xl" />
+                    <MdSmartphone className="text-xl" />
                   </li>
                   <li
                     className="flex flex-col items-center
                        justify-center gap-4"
                   >
                     <p>Tablet</p>
-                    <BsTabletLandscape className="text-xl" />
+                    <MdOutlineTablet className="text-xl" />
                   </li>
                   <li
                     className="flex flex-col items-center
@@ -492,14 +491,14 @@ const planRoute = '/signup/planform'
                        justify-center gap-4"
                   >
                     <p>Phone</p>
-                    <BsPhone className="text-xl" />
+                    <MdSmartphone className="text-xl" />
                   </li>
                   <li
                     className="flex flex-col items-center
                        justify-center gap-4"
                   >
                     <p>Tablet</p>
-                    <BsTabletLandscape className="text-xl" />
+                    <MdOutlineTablet className="text-xl" />
                   </li>
                   <li
                     className="flex flex-col items-center
@@ -525,7 +524,7 @@ const planRoute = '/signup/planform'
         <div className='w-full text-center p-20'>
           {/* <Link to="/signup/registration"> */}
             <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-6 w-[40%] text-xl" onClick={(e)=>handleCheckout(e)}>
-              Next
+              Proceed to Checkout
             </button>
           {/* </Link> */}
         </div>

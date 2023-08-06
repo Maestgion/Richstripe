@@ -34,12 +34,12 @@ const SignupStart = () => {
                     <p className='text-lg '>No ads and no extra fees. Ever.</p>
                   
                 </div>
-            </div>
+        </div>
 
             {/* button */}
 
             <div className='w-[100%]'>
-                <Link to="/signup/planform">
+                <Link to="/signup/registration">
                 <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-10  text-2xl w-[100%]">
               Next
             </button>

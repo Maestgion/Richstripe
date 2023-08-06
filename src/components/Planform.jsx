@@ -13,7 +13,7 @@ const Planform = () => {
 
         <div className='flex flex-col gap-4 justify-center items-start text-white'>
                <div>
-               <p className='text-base'>STEP 1 OF 3</p>
+               <p className='text-base'>STEP 3 OF 3</p>
                 <p className='text-4xl font-bold'>Choose the right plan for you.</p>
                </div>
 

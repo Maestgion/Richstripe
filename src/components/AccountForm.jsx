@@ -117,7 +117,7 @@ const AccountForm = ({ isLogin }) => {
           </p>) : (<p className='text-lg tracking-wider'>
             New to MyApp?{" "}
             <span className='text-[#004E96] font-bold'>
-              <Link to="/signup/regform">Sign Up</Link>
+              <Link to="/signup/planform">Sign Up</Link>
             </span>
           </p>)
            }

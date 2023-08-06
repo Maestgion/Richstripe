@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/images/logo.png";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUser } from "../store/slices/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, signout } from "../store/slices/userSlice";
 import { auth } from "../utils/firebase";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const [signin, setSignin] = useState(true)
   const user = useSelector(selectUser)
+  const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    auth.signOut()
-      .then(() => {
-        console.log('User signed out successfully.');
-      })
-      .catch((error) => {
-        console.error('Error signing out:', error);
-      });
-  };
+  const handleLogout = async ()=> {
+        try{
+            await signOut(auth)
+            dispatch(signout)
+            setSignin(false)
+            navigate('/')
+            console.log(user)
+        }catch(err)
+        {
+            console.error(err)
+        }
+    }
 
   return (
     <>
@@ -27,8 +34,8 @@ const Navbar = () => {
         </div>
 
         <div>
-          {/* {
-            user ? (
+          {
+            signin ? (
             <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-2 px-6 " onClick={handleLogout}>
               Sign out
             </button>
@@ -37,14 +44,14 @@ const Navbar = () => {
             Sign in
           </button>
         </Link>)
-          } */}
+          }
 
-<Link to="/signin">
+{/* <Link to="/signin">
           <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-2 px-6">
             Sign in
           </button>
         </Link>
-          
+           */}
         </div>
       </div>
     </>
