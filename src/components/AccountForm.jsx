@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {auth} from "../utils/firebase"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const AccountForm = ({ isLogin }) => {
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -16,6 +17,7 @@ const AccountForm = ({ isLogin }) => {
 
 
   const handleSignUp=async (e)=>{
+    navigate('/signup/planform')
     e.preventDefault()
     try{
       const userCredentials = await createUserWithEmailAndPassword(auth, user.email, user.password)
