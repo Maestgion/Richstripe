@@ -16,11 +16,11 @@ const PricingTable = () => {
   };
   return (
     <>
-      <div class="relative overflow-x-auto ">
-        <table class="w-full text-sm text-left ">
-          <thead class="text-xs ">
+      <div className="relative overflow-x-auto ">
+        <table className="w-full text-sm text-left ">
+          <thead className="text-xs ">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 <div className="flex justify-center items-center bg-[#004E96] rounded-full p-2 w-[12vw]">
                   <span
                     className={`cursor-pointer inline-flex items-center p-3 rounded-full justify-center  w-[5vw] transition-all ease-in ${
@@ -44,7 +44,7 @@ const PricingTable = () => {
                   </span>
                 </div>
               </th>
-              <th scope="col" class="px-6 py-3 ">
+              <th scope="col" className="px-6 py-3 ">
                 <label className="cursor-pointer inline-flex items-center">
                   <input
                     type="radio"
@@ -60,7 +60,7 @@ const PricingTable = () => {
                 </label>
               </th>
 
-              <th scope="col" class="px-6 py-3 ">
+              <th scope="col" className="px-6 py-3 ">
                 <label className="cursor-pointer inline-flex items-center">
                   <input
                     type="radio"
@@ -76,7 +76,7 @@ const PricingTable = () => {
                 </label>
               </th>
 
-              <th scope="col" class="px-6 py-3 ">
+              <th scope="col" className="px-6 py-3 ">
                 <label className="cursor-pointer inline-flex items-center">
                   <input
                     type="radio"
@@ -92,7 +92,7 @@ const PricingTable = () => {
                 </label>
               </th>
 
-              <th scope="col" class="px-6 py-3 ">
+              <th scope="col" className="px-6 py-3 ">
                 <label className="cursor-pointer inline-flex items-center">
                   <input
                     type="radio"
@@ -111,30 +111,30 @@ const PricingTable = () => {
           </thead>
           <tbody>
             <tr
-              class={`border-b border-gray-300 text-base text-center font-bold`}
+              className={`border-b border-gray-300 text-base text-center font-bold`}
             >
               <th
                 scope="row"
-                class="px-6 py-4 font-medium text-white whitespace-nowrap  text-left"
+                className="px-6 py-4 font-medium text-white whitespace-nowrap  text-left"
               >
                 Monthly Price
               </th>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option1" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 &#8377; {isYearly ? 100 : 1000}
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option2" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 &#8377; {isYearly ? 200 : 2000}
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option3" ? "text-[#004E96]" : "text-white"
                 }`}
               >
@@ -142,7 +142,7 @@ const PricingTable = () => {
               </td>
 
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option4" ? "text-[#004E96]" : "text-white"
                 }`}
               >
@@ -150,37 +150,37 @@ const PricingTable = () => {
               </td>
             </tr>
             <tr
-              class={`border-b border-gray-300 text-base text-center font-bold`}
+              className={`border-b border-gray-300 text-base text-center font-bold`}
             >
               <th
                 scope="row"
-                class="px-6 py-4 font-medium  whitespace-nowrap text-left text-white"
+                className="px-6 py-4 font-medium  whitespace-nowrap text-left text-white"
               >
                 Video Quality
               </th>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option1" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 Good
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option2" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 Good
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option3" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 Better
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option4" ? "text-[#004E96]" : "text-white"
                 }`}
               >
@@ -188,52 +188,52 @@ const PricingTable = () => {
               </td>
             </tr>
             <tr
-              class={`border-b border-gray-300 text-base text-center font-bold `}
+              className={`border-b border-gray-300 text-base text-center font-bold `}
             >
               <th
                 scope="row"
-                class="px-6 py-4 font-medium  whitespace-nowrap text-white text-left"
+                className="px-6 py-4 font-medium  whitespace-nowrap text-white text-left"
               >
                 Resolution
               </th>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option1" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 480p
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option2" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 480p
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option3" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 1080p
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option4" ? "text-[#004E96]" : "text-white"
                 }`}
               >
                 4k+HDR
               </td>
             </tr>
-            <tr class={` text-base text-center font-bold`}>
+            <tr className={` text-base text-center font-bold`}>
               <th
                 scope="row"
-                class="px-6 py-4 font-medium whitespace-nowrap text-left text-white relative bottom-[18vh]"
+                className="px-6 py-4 font-medium whitespace-nowrap text-left text-white relative bottom-[18vh]"
               >
                 Devices you can use to watch
               </th>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option1" ? "text-[#004E96]" : "text-white "
                 }`}
               >
@@ -258,7 +258,7 @@ const PricingTable = () => {
                 </ul>
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option2" ? "text-[#004E96]" : "text-white"
                 }`}
               >
@@ -298,7 +298,7 @@ const PricingTable = () => {
                 </ul>
               </td>
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option3" ? "text-[#004E96]" : "text-white"
                 }`}
               >
@@ -339,7 +339,7 @@ const PricingTable = () => {
               </td>
 
               <td
-                class={`px-6 py-4 ${
+                className={`px-6 py-4 ${
                   selectedOption === "option4" ? "text-[#004E96]" : "text-white"
                 }`}
               >

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {auth} from "../utils/firebase"
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const AccountForm = ({ isLogin }) => {
   const [user, setUser] = useState({
@@ -9,6 +11,19 @@ const AccountForm = ({ isLogin }) => {
   });
 
   const [checkme, setCheckme] = useState(false);
+
+  console.log(user.name)
+
+
+  const handleSubmit=async (e)=>{
+    e.preventDefault()
+    try{
+      await createUserWithEmailAndPassword(auth, user.email, user.password)
+      }catch(err)
+      {
+          console.log(err)
+      }
+  }
 
   return (
     <>
@@ -22,7 +37,7 @@ const AccountForm = ({ isLogin }) => {
           </div>
 
           {/* form */}
-          <form className='w-[100%]'>
+          <form  onSubmit={handleSubmit} className='w-[100%]'>
             <div className='flex flex-col gap-8 justify-center items-center w-full'>
               <input
                 type="text"
@@ -61,11 +76,11 @@ const AccountForm = ({ isLogin }) => {
 
           {/* button */}
           <div className='w-[100%]'>
-            <Link to="/signup">
-              <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-10 text-2xl w-[100%]">
+            {/* <Link to="/signup"> */}
+              <button className="outline-none rounded-md bg-[#004E96] text-white hover:bg-[#035fb5] py-4 px-10 text-2xl w-[100%]" type="submit" onClick={handleSubmit}>
                 {!isLogin ? "Sign up" : "Sign in"}
               </button>
-            </Link>
+            {/* </Link> */}
           </div>
 
           {/* disclaimer */}
